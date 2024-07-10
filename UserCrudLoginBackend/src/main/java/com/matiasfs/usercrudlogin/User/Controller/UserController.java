@@ -36,22 +36,26 @@ public class UserController {
 
     private final JwtService jwtService;
 
+    @PreAuthorize("hasAnyAuthority('USER', 'ADMIN') ")
     @GetMapping("/users")
     public ResponseEntity<List<User>> getUsers() {
         return ResponseEntity.ok(userRepository.findAll());
     }
 
     @CrossOrigin
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/users")
     public User addUser(@RequestBody User user) {
         return userRepository.save(user);
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/users/{id}")
     public ResponseEntity<User> getUserById(@PathVariable int id) {
         return ResponseEntity.ok(userRepository.findById(id).orElseThrow());
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PutMapping("/users/{id}")
     public ResponseEntity<User> getUserById(@PathVariable int id, @RequestBody User user) {
         User userToUpdate = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
@@ -63,6 +67,7 @@ public class UserController {
         return ResponseEntity.ok(userRepository.save(userToUpdate));
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
     @PutMapping("users/changePassword")
     public ResponseEntity<User> changePassword(@RequestHeader("Authorization") String token, @RequestBody PasswordChangeRequest passwordChangeRequest) {
         String username = jwtService.getUsernameFromToken(token.substring(7));
@@ -76,7 +81,7 @@ public class UserController {
         return ResponseEntity.ok(userRepository.save(userToUpdate));
     }
 
-    @PreAuthorize("hasAuthority('USER')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     @DeleteMapping("/users/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable int id) {
         userRepository.deleteById(id);
