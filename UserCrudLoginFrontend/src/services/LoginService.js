@@ -8,26 +8,49 @@ class LoginService {
       password,
     });
     if (response.data.token) {
-      localStorage.setItem("user", JSON.stringify(response.data));
+      localStorage.setItem("token", (response.data.token));
+      localStorage.setItem("role", (response.data.role));
+      console.log(response.data)
+      console.log(localStorage.getItem("token"))
     }
     return response.data;
   }
 
   logout() {
-    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+    localStorage.removeItem("role");
   }
 
   getCurrentUser() {
-    return JSON.parse(localStorage.getItem("user"));
+    return localStorage.getItem("token");
   }
 
   getAuthHeader() {
     const user = this.getCurrentUser();
-    if (user && user.token) {
-      return { Authorization: "Bearer " + user.token };
+    if (user) {
+      return { Authorization: "Bearer " + user };
     } else {
       return {};
     }
+  }
+  isAuthenticated() {
+    const token = localStorage.getItem("token");
+    return !!token;
+  }
+
+  isAdmin() {
+    const role = localStorage.getItem("role");
+    return role === "[ADMIN]";
+  }
+
+  isUser() {
+    const role = localStorage.getItem("role");
+    return role === "[USER]";
+  }
+
+  adminOnly() {
+    console.log(this.isAdmin())
+    return this.isAuthenticated() && this.isAdmin();
   }
 }
 

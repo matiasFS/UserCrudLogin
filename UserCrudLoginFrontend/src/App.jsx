@@ -6,6 +6,7 @@ import HomePage from "./components/HomePage";
 import LoginPage from "./components/LoginPage";
 import PrivateRoutes from "./components/PrivateRoutes";
 import ChangePassword from "./components/ChangePassword";
+import LoginService from "./services/LoginService";
 
 function App() {
   return (
@@ -15,7 +16,9 @@ function App() {
           <Route element={<HomePage />} path="/home" exact />
           <Route element={<ListOfUsers />} path="/users" />
           <Route path="/update/:id" element={<UpdateUser />} />
-          <Route path="/changePassword" element={<ChangePassword />} />
+          {LoginService.adminOnly() && (
+            <Route path="/changePassword" element={<ChangePassword />} />
+          )}
         </Route>
         <Route exact path="/" element={<LoginPage />} />
       </Routes>

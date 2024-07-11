@@ -28,7 +28,8 @@ public class AuthService {
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         String token = jwtService.getToken(user);
-        return AuthResponse.builder().token(token).build();
+        String role = user.getAuthorities().toString();
+        return AuthResponse.builder().token(token).role(role).build();
     }
 
     public AuthResponse register(RegisterRequest registerRequest) {
@@ -44,7 +45,7 @@ public class AuthService {
 
         userRepository.save(user);
 
-        return AuthResponse.builder().token(jwtService.getToken(user)).build();
+        return AuthResponse.builder().token(jwtService.getToken(user)).role(Role.USER.toString()).build();
 
     }
 

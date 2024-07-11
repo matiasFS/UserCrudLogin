@@ -44,6 +44,7 @@ export default function ListOfUsers() {
               <th>Username</th>
               <th>Email</th>
               <th>Pais</th>
+              <th>Role</th>
               <th>Acciones</th>
             </tr>
           </thead>
@@ -55,6 +56,7 @@ export default function ListOfUsers() {
                 <td>{user.username}</td>
                 <td>{user.email}</td>
                 <td>{user.country}</td>
+                <td>{user.role}</td>
                 <td>
                   <Link to={`/update/${user.id}`} className="btn btn-primary">
                     Actualizar
