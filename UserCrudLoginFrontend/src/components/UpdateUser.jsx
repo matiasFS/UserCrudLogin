@@ -9,10 +9,11 @@ export default function UpdateUser() {
     firstName: "",
     lastName: "",
     country: "",
+    role: "",
   });
   const { id } = useParams();
 
-  const { firstName, lastName, username, email, country } = user;
+  const { firstName, lastName, username, email, country, role } = user;
   const navigate = useNavigate();
 
   const saveOrUpdateUser = (e) => {
@@ -103,6 +104,20 @@ export default function UpdateUser() {
                 value={country}
                 onChange={(e) => setUser({ ...user, country: e.target.value })}
               />
+            )}
+          </div>
+          <div className="form-group">
+            <label>Role</label>
+            {user && (
+              <select
+                name="roles"
+                id="rol"
+                value={role}
+                onChange={(e) => setUser({ ...user, role: e.target.value })}
+              >
+                <option>USER</option>
+                <option>ADMIN</option>
+              </select>
             )}
           </div>
           <button

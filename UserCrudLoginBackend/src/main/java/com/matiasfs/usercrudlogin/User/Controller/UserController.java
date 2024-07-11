@@ -64,6 +64,7 @@ public class UserController {
         userToUpdate.setFirstName(user.getFirstName());
         userToUpdate.setLastName(user.getLastName());
         userToUpdate.setCountry(user.getCountry());
+        userToUpdate.setRole(user.getRole());
         return ResponseEntity.ok(userRepository.save(userToUpdate));
     }
 

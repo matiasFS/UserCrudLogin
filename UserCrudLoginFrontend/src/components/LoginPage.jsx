@@ -44,7 +44,7 @@ export default function LoginPage() {
         </div>
         {error && <div className="alert alert-danger">{error}</div>}
         <button type="submit" className="btn btn-primary">
-          Iniciar sesión
+          Login
         </button>
       </form>
     </div>

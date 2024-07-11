@@ -12,15 +12,15 @@ function App() {
   return (
     <Router>
       <Routes>
+        <Route exact path="/" element={<LoginPage />} />
         <Route element={<PrivateRoutes />}>
           <Route element={<HomePage />} path="/home" exact />
           <Route element={<ListOfUsers />} path="/users" />
-          <Route path="/update/:id" element={<UpdateUser />} />
           {LoginService.adminOnly() && (
-            <Route path="/changePassword" element={<ChangePassword />} />
+            <Route path="/update/:id" element={<UpdateUser />} />
           )}
+          <Route path="/changePassword" element={<ChangePassword />} />
         </Route>
-        <Route exact path="/" element={<LoginPage />} />
       </Routes>
     </Router>
   );

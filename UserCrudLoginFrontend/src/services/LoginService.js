@@ -8,10 +8,8 @@ class LoginService {
       password,
     });
     if (response.data.token) {
-      localStorage.setItem("token", (response.data.token));
-      localStorage.setItem("role", (response.data.role));
-      console.log(response.data)
-      console.log(localStorage.getItem("token"))
+      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("role", response.data.role);
     }
     return response.data;
   }
@@ -49,7 +47,6 @@ class LoginService {
   }
 
   adminOnly() {
-    console.log(this.isAdmin())
     return this.isAuthenticated() && this.isAdmin();
   }
 }

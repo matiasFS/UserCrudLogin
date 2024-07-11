@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import UserService from "../services/UserService";
 import { Link } from "react-router-dom";
+import LoginService from "../services/LoginService";
 
 export default function ListOfUsers() {
   const [users, setUsers] = useState([]);
@@ -44,8 +45,8 @@ export default function ListOfUsers() {
               <th>Username</th>
               <th>Email</th>
               <th>Pais</th>
-              <th>Role</th>
-              <th>Acciones</th>
+              {LoginService.adminOnly() && <th>Role</th>}
+              {LoginService.adminOnly() && <th>Acciones</th>}
             </tr>
           </thead>
           <tbody>
@@ -56,18 +57,21 @@ export default function ListOfUsers() {
                 <td>{user.username}</td>
                 <td>{user.email}</td>
                 <td>{user.country}</td>
-                <td>{user.role}</td>
-                <td>
-                  <Link to={`/update/${user.id}`} className="btn btn-primary">
-                    Actualizar
-                  </Link>
-                  <button
-                    onClick={() => deleteUser(user.id)}
-                    className="btn btn-danger"
-                  >
-                    Eliminar
-                  </button>
-                </td>
+                {LoginService.adminOnly() && <td>{user.role}</td>}
+                {LoginService.adminOnly() && (
+                  <td>
+                    <Link to={`/update/${user.id}`} className="btn btn-primary">
+                      Actualizar
+                    </Link>
+
+                    <button
+                      onClick={() => deleteUser(user.id)}
+                      className="btn btn-danger"
+                    >
+                      Eliminar
+                    </button>
+                  </td>
+                )}
               </tr>
             ))}
           </tbody>

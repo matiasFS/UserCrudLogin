@@ -16,11 +16,11 @@ export default function HomePage() {
         <Link to="/users" className="btn btn-primary">
           View users
         </Link>
-        {LoginService.adminOnly() && (
-          <Link to="/changePassword" className="btn btn-primary">
-            Change password
-          </Link>
-        )}
+
+        <Link to="/changePassword" className="btn btn-primary">
+          Change password
+        </Link>
+
         <button onClick={handleLogout} className="btn btn-danger">
           Logout
         </button>
