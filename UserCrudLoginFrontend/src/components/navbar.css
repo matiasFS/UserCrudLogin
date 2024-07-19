@@ -1,7 +1,6 @@
 .navbar {
   background-color: #67666842;
   color: #fff;
-  padding: 1rem;
 }
 
 .navbar-container {
@@ -25,16 +24,69 @@
 .nav-links.right {
   justify-content: flex-end;
   flex-grow: 1;
-  gap: 1rem;
 }
-.nav-links a {
+.link {
   color: hsla(0, 0%, 100%, 0.74);
   text-decoration: none;
   font-size: 1.3rem;
   padding: 1rem;
   transition: background-color 0.3s, color 0.3s;
 }
-.nav-links a:hover {
-  background-color: #683d93a8;
+.link:hover {
+  background-color: #49474aa8;
   color: #fff;
+}
+
+.nav-button{
+    background-color: #6e6e6e;
+    color: #fbfbfb;
+    padding: 0.8rem;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+.separation{
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+}
+.dropdown {
+  position: relative;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: #373737;
+  border: 1px solid #ccc;
+  z-index: 1;
+}
+
+.dropdown-item {
+  padding: 10px 20px;
+  text-decoration: none;
+  color: #ffffff;
+  display: block;
+}
+
+.dropdown-button{
+    padding: 10px 20px;
+    text-decoration: none;
+    color: #ffffff;
+    display: flex;
+    width: 100%;
+    background: none;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+  }
+  
+.dropdown-item:hover , .dropdown-button:hover{
+    background-color: #49474aa8;
+    color: #fff;
 }

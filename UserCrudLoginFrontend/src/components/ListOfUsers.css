@@ -1,0 +1,100 @@
+/* Estilo para el contenedor principal */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Título centrado */
+.title {
+  font-size: 2.5rem;
+  color: #ffffff;
+}
+
+/* Estilo para la tabla */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.table th,
+.table td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #ddd;
+  background-color: Canvas; /* Color de fondo uniforme para toda la tabla */
+  text-align: center;
+  font-size: 1.3rem;
+}
+
+.table th {
+  font-size: 2rem;
+  text-align: center;
+  background-color: Canvas; /* Color de fondo para los encabezados */
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.items {
+  display: flex;
+  align-items: center;
+}
+
+.userLength {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  background-color: #f0f0f0;
+  color: #000;
+  font-size: 1.5rem;
+  padding: 0.5rem;
+  border-radius: 50%;
+  font: 25px Arial, sans-serif;
+  margin-left: 15px; /* Ajusta el espaciado según sea necesario */
+}
+
+.button-cell {
+  display: flex;
+  justify-content: center;
+  gap: 10px; /* Espacio entre los botones */
+}
+
+.button-cell .btn {
+  display: inline-flex;
+  align-items: center;
+  border: none;
+  border-radius: 5px;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  padding: 10px;
+
+  color: #fff;
+}
+
+.btn-primary:hover,
+.btn-danger:hover {
+  opacity: 0.8;
+}
+
+.btn:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Estilo para el enlace de volver a inicio */
+.btn-primary {
+  display: flex;
+  text-decoration: none;
+  text-align: center;
+  justify-content: center;
+  padding: 8px;
+  background-color: lightskyblue;
+  color: #fff;
+}

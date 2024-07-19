@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import UserService from "../services/UserService";
 import { Link } from "react-router-dom";
 import LoginService from "../services/LoginService";
-
+import "./ListOfUsers.css";
 export default function ListOfUsers() {
   const [users, setUsers] = useState([]);
   useEffect(() => {
@@ -36,7 +36,11 @@ export default function ListOfUsers() {
   return (
     <>
       <div className="container">
-        <h2 className="text-center">Lista de usuarios</h2>
+        <div className="items">
+          <h2 className="title">Lista de usuarios</h2>
+          <span className="userLength">{users.length}</span>
+        </div>
+
         <table className="table table-striped">
           <thead>
             <tr>
@@ -59,17 +63,20 @@ export default function ListOfUsers() {
                 <td>{user.country}</td>
                 {LoginService.adminOnly() && <td>{user.role}</td>}
                 {LoginService.adminOnly() && (
-                  <td>
-                    <Link to={`/update/${user.id}`} className="btn btn-primary">
-                      Actualizar
-                    </Link>
+                  <td className="button-cell">
+                      <Link
+                        to={`/update/${user.id}`}
+                        className="btn btn-primary"
+                      >
+                        Actualizar
+                      </Link>
 
-                    <button
-                      onClick={() => deleteUser(user.id)}
-                      className="btn btn-danger"
-                    >
-                      Eliminar
-                    </button>
+                      <button
+                        onClick={() => deleteUser(user.id)}
+                        className="btn btn-danger"
+                      >
+                        Eliminar
+                      </button>
                   </td>
                 )}
               </tr>

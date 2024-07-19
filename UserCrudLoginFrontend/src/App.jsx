@@ -8,6 +8,7 @@ import ChangePassword from "./components/ChangePassword";
 import LoginService from "./services/LoginService";
 import NavBar from "./components/NavBar";
 import { useLocation } from "react-router-dom";
+import Profile from "./components/Profile";
 
 function App() {
   const location = useLocation();
@@ -24,6 +25,7 @@ function App() {
               <Route path="/update/:id" element={<UpdateUser />} />
             )}
             <Route path="/changePassword" element={<ChangePassword />} />
+            <Route element={<Profile />} path="/profile" />
           </Route>
         </Routes>
       </div>
