@@ -1,0 +1,76 @@
+
+  
+  .container {
+    margin-bottom: 15px;
+  }
+  
+  
+  /* Estilos para etiquetas */
+  .label {
+    display: block;
+    margin-bottom: 5px;
+    color: #cccccc; /* Color de las etiquetas */
+  }
+  
+  /* Estilos para los campos de entrada */
+  .input,
+  .select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #444444;
+    border-radius: 5px;
+    background-color: #333333; /* Fondo del input */
+    color: #ffffff; /* Color del texto del input */
+    font-size: 14px;
+    outline: none; /* Sin contorno al enfocar */
+    transition: border-color 0.3s ease; /* Transición suave */
+  }
+  
+  .input:focus,
+  .select:focus {
+    border-color: #5555ff; /* Color de borde al enfocar */
+  }
+  
+  /* Estilo para el campo select */
+  .select {
+    appearance: none; /* Eliminar estilos por defecto */
+    cursor: pointer;
+    background-image: url('data:image/svg+xml;base64,PHN2ZyBmaWxsPSJ3aGl0ZSIgaGVpZ2h0PSIxMCIgdmlld0JveD0iMCAwIDI0IDI0IiB3aWR0aD0iMTAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTEyLDE1LjM1NyBMNC4yODcsNy44NTcgQzMuOTA0LDcuNTA1IDMuODkyLDYuOTg1IDQuMjI1LDYuNjU2IEM0LjU1OCw2LjMyOCA1LjA3OSw2LjMzNyA1LjQxMiw2LjY3IEwxMiwxMy4zMzIgTDE4LjU4OCw2LjY3IEMxOC45MjIsNi4zMzcgMTkuNDQxLDYuMzI4IDE5Ljc3NSw2LjY1NiBDMjAuMTA5LDYuOTg1IDIwLjA5NSw3LjUwNSAxOS43MTMsNy44NTcgTDEyLDE1LjM1NyBMMTIsMTUuMzU3IFoiLz48L3N2Zz4='); /* Flecha personalizada */
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    padding-right: 30px; /* Espacio para la flecha */
+  }
+  
+  /* Estilos para el botón */
+  .button {
+    background-color: #5555ff; /* Color de fondo del botón */
+    color: #ffffff; /* Color del texto del botón */
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-right: 10px;
+    transition: background-color 0.3s ease; /* Transición suave */
+  }
+  
+  .button:hover {
+    background-color: #7777ff; /* Cambio de color al pasar el mouse */
+  }
+  
+  /* Estilo para el enlace */
+  .link-button {
+    background-color: #333333; /* Color de fondo del enlace */
+    color: #ffffff;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease; /* Transición suave */
+  }
+  
+  .link-button:hover {
+    background-color: #444444; /* Cambio de color al pasar el mouse */
+  }
+  
