@@ -1,13 +1,6 @@
-import { Link, useNavigate } from "react-router-dom";
-import LoginService from "../services/LoginService";
 import "./homepage.css";
 export default function HomePage() {
-  const navigate = useNavigate();
 
-  const handleLogout = () => {
-    LoginService.logout();
-    navigate("/");
-  };
 
   return (
     <div>
