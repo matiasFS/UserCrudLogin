@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.matiasfs.usercrudlogin.Jwt.JwtService;
 import com.matiasfs.usercrudlogin.User.Entity.User;
-import com.matiasfs.usercrudlogin.User.Repository.UserRepository;
+import com.matiasfs.usercrudlogin.User.service.UserService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -29,63 +28,50 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class UserController {
 
+    
     @Autowired
-    private final UserRepository userRepository;
+    private final UserService userService;
 
-    private final PasswordEncoder passwordEncoder;
 
     private final JwtService jwtService;
 
     @PreAuthorize("hasAnyAuthority('USER', 'ADMIN') ")
     @GetMapping("/users")
     public ResponseEntity<List<User>> getUsers() {
-        return ResponseEntity.ok(userRepository.findAll());
+        return ResponseEntity.ok(userService.findAll());
     }
 
     @CrossOrigin
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/users")
     public User addUser(@RequestBody User user) {
-        return userRepository.save(user);
+        return userService.save(user);
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/users/{id}")
     public ResponseEntity<User> getUserById(@PathVariable int id) {
-        return ResponseEntity.ok(userRepository.findById(id).orElseThrow());
+        return ResponseEntity.ok(userService.findById(id));
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @PutMapping("/users/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable int id, @RequestBody User user) {
-        User userToUpdate = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
-        userToUpdate.setUsername(user.getUsername());
-        userToUpdate.setEmail(user.getEmail());
-        userToUpdate.setFirstName(user.getFirstName());
-        userToUpdate.setLastName(user.getLastName());
-        userToUpdate.setCountry(user.getCountry());
-        userToUpdate.setRole(user.getRole());
-        return ResponseEntity.ok(userRepository.save(userToUpdate));
+    public ResponseEntity<User> updateUser(@PathVariable int id, @RequestBody User user) {
+        return ResponseEntity.ok(userService.update(id, user));
     }
 
     @PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
     @PutMapping("users/changePassword")
     public ResponseEntity<User> changePassword(@RequestHeader("Authorization") String token, @RequestBody PasswordChangeRequest passwordChangeRequest) {
         String username = jwtService.getUsernameFromToken(token.substring(7));
-        User userToUpdate = userRepository.findByUsername(username).orElseThrow(() -> new RuntimeException("User not found"));
-        if (passwordEncoder.matches(passwordChangeRequest.getOldPassword(), userToUpdate.getPassword())) {
-            userToUpdate.setPassword(passwordEncoder.encode(passwordChangeRequest.getNewPassword()));
-        } else {
-            throw new RuntimeException("Old password is incorrect");
-        }
-
-        return ResponseEntity.ok(userRepository.save(userToUpdate));
+        User userToUpdate = userService.changePassword(username, passwordChangeRequest.getOldPassword(), passwordChangeRequest.getNewPassword());
+        return ResponseEntity.ok(userService.update(userToUpdate.getId(), userToUpdate));
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @DeleteMapping("/users/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable int id) {
-        userRepository.deleteById(id);
+        userService.delete(id);
         return ResponseEntity.noContent().build();
     }
 
