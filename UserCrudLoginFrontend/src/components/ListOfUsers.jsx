@@ -1,92 +1,55 @@
-import { useEffect, useState } from "react";
-import UserService from "../services/UserService";
 import { Link } from "react-router-dom";
-import LoginService from "../services/LoginService";
+import useUsers from "../hooks/useUser.js"; // Importa el hook
 import "./ListOfUsers.css";
+
 export default function ListOfUsers() {
-  const [users, setUsers] = useState([]);
-  useEffect(() => {
-    UserService.getAll().then((data) => setUsers(data));
-  }, []);
-
-  const deleteUser = (id) => {
-    try {
-      // Opcional: mostrar un mensaje de confirmación
-      if (
-        !window.confirm("¿Estás seguro de que deseas eliminar este usuario?")
-      ) {
-        return;
-      }
-
-      // Llamar al servicio para eliminar el usuario
-      UserService.deleteUser(id);
-
-      // Actualizar el estado de los usuarios
-      setUsers((prevUsers) => prevUsers.filter((user) => user.id !== id));
-    } catch (error) {
-      // Manejar el error
-      console.error("Error eliminando el usuario:", error);
-      // Opcional: mostrar un mensaje de error al usuario
-      alert(
-        "Hubo un error eliminando el usuario. Por favor, intenta nuevamente."
-      );
-    }
-  };
+  const { users, deleteUser, isAdmin } = useUsers();
 
   return (
-    <>
-      <div className="container">
-        <div className="items">
-          <h2 className="title">Lista de usuarios</h2>
-          <span className="userLength">{users.length}</span>
-        </div>
-
-        <table className="table table-striped">
-          <thead>
-            <tr>
-              <th>Nombre</th>
-              <th>Apellido</th>
-              <th>Username</th>
-              <th>Email</th>
-              <th>Pais</th>
-              {LoginService.adminOnly() && <th>Role</th>}
-              {LoginService.adminOnly() && <th>Acciones</th>}
-            </tr>
-          </thead>
-          <tbody>
-            {users.map((user) => (
-              <tr key={user.id}>
-                <td>{user.firstName}</td>
-                <td>{user.lastName}</td>
-                <td>{user.username}</td>
-                <td>{user.email}</td>
-                <td>{user.country}</td>
-                {LoginService.adminOnly() && <td>{user.role}</td>}
-                {LoginService.adminOnly() && (
-                  <td className="button-cell">
-                      <Link
-                        to={`/update/${user.id}`}
-                        className="btn btn-primary"
-                      >
-                        Actualizar
-                      </Link>
-
-                      <button
-                        onClick={() => deleteUser(user.id)}
-                        className="btn btn-danger"
-                      >
-                        Eliminar
-                      </button>
-                  </td>
-                )}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        <Link to="/home" className="btn btn-primary">
-          Volver a inicio
-        </Link>
+    <div className="container">
+      <div className="items">
+        <h2 className="title">Users list</h2>
+        <span className="userLength">{users.length}</span>
       </div>
-    </>
+
+      <table className="table table-striped">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Lastname</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Country</th>
+            {isAdmin && <th>Role</th>}
+            {isAdmin && <th>Acciones</th>}
+          </tr>
+        </thead>
+        <tbody>
+          {users.map((user) => (
+            <tr key={user.id}>
+              <td>{user.firstName}</td>
+              <td>{user.lastName}</td>
+              <td>{user.username}</td>
+              <td>{user.email}</td>
+              <td>{user.country}</td>
+              {isAdmin && <td>{user.role}</td>}
+              {isAdmin && (
+                <td className="button-cell">
+                  <Link to={`/update/${user.id}`} className="btn btn-primary">
+                    Update
+                  </Link>
+                  <button onClick={() => deleteUser(user.id)} className="btn btn-danger">
+                    Delete
+                  </button>
+                </td>
+              )}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <Link to="/home" className="btn btn-primary">
+        Go back
+      </Link>
+    </div>
   );
 }

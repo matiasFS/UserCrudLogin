@@ -1,24 +1,8 @@
-import { Link, useNavigate } from "react-router-dom";
-import UserService from "../services/UserService";
-import { useState } from "react";
+import { Link } from "react-router-dom";
+import useChangePassword from "../hooks/useChangePassword.js"; // Importa el hook
 
 export default function ChangePassword() {
-  const [password, setPassword] = useState({
-    oldPassword: "",
-    newPassword: "",
-  });
-
-  const { oldPassword, newPassword } = password;
-  const navigate = useNavigate();
-
-  const changePassword = (e) => {
-    e.preventDefault();
-
-    UserService.changePassword(password).then((res) => {
-      alert("Password changed correctly");
-      navigate("/home");
-    });
-  };
+  const { oldPassword, newPassword, setPassword, changePassword } = useChangePassword();
 
   return (
     <div className="container">
@@ -32,7 +16,7 @@ export default function ChangePassword() {
             placeholder="Type old password"
             value={oldPassword}
             onChange={(e) =>
-              setPassword({ ...password, oldPassword: e.target.value })
+              setPassword({ oldPassword: e.target.value, newPassword })
             }
           />
         </div>
@@ -44,14 +28,13 @@ export default function ChangePassword() {
             placeholder="Type new password"
             value={newPassword}
             onChange={(e) =>
-              setPassword({ ...password, newPassword: e.target.value })
+              setPassword({ oldPassword, newPassword: e.target.value })
             }
           />
         </div>
-        <button className="btn btn-success" onClick={(e) => changePassword(e)}>Save changes</button>
+        <button className="btn btn-primary" onClick={(e) => changePassword(e)}>Save changes</button>
       </form>
       <Link to="/home" className="btn btn-primary">Go back</Link>
-
     </div>
   );
 }

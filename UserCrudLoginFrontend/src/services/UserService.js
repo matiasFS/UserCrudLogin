@@ -1,7 +1,6 @@
 import axios from "axios";
 import LoginService from "./LoginService";
 const CUSTOMER_API_URL = "http://localhost:8080/api/users";
-const ROLE_API = "http://localhost:8080/api";
 
 class UserService {
   async getAll() {
