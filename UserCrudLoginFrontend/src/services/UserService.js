@@ -33,6 +33,17 @@ class UserService {
       throw new Error("Failed to update customer: " + error.message);
     }
   }
+
+  async addUser(user) {
+    try {
+      return await axios.post(CUSTOMER_API_URL, user, {
+        headers: LoginService.getAuthHeader(),
+      });
+    } catch (error) {
+      throw new Error("Failed to add customer: " + error.message);
+    }
+  }
+
   async deleteUser(userID) {
     try {
       return await axios.delete(`${CUSTOMER_API_URL}/${userID}`, {
