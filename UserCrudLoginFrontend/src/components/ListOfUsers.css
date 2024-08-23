@@ -95,7 +95,29 @@
   text-align: center;
   justify-content: center;
   padding: 8px;
-  background-color: lightskyblue;
+  background-color: #5555ff;
   color: #fff;
   cursor: pointer;
+}
+
+.backbutton {
+  border-radius: 8px;
+  text-decoration: none;
+  text-align: center;
+  justify-content: center;
+  padding: 10px;
+  background-color: #5555ff;
+  color: #fff;
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+.backbutton:hover {
+  opacity: 0.8;
+}
+
+.button-cell-1 {
+  display: flex;
+  justify-content: left;
+  gap: 10px; /* Espacio entre los botones */
 }

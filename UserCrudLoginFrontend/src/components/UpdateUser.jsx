@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import useUpdateUser from "../hooks/useUpdateUser.js"; // Importa el hook
-
+import "../components/updateuser.css";
 export default function UpdateUser() {
   const { user, setUser, saveOrUpdateUser } = useUpdateUser();
   const { firstName, lastName, username, email, country, role } = user;
@@ -71,10 +71,10 @@ export default function UpdateUser() {
             </select>
           </div>
           <td className='button-cell'>
-            <button className='button btn-primary' onClick={(e) => saveOrUpdateUser(e)}>
+            <button className='button' onClick={(e) => saveOrUpdateUser(e)}>
               Update
             </button>
-            <Link to='/users' className='link-button btn-primary'>
+            <Link to='/users' className='button'>
               Go back
             </Link>
           </td>
